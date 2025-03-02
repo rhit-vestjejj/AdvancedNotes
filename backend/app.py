@@ -33,7 +33,7 @@ def get_notes():
     try:
         with open(f"backend/notes/{prevdate}.txt", 'r') as f:
             content = f.read()
-        if content == "New note":
+        if content == "New note" or content == "":
             remove_note(prevdate)
     except Exception as ex:
         print(str(ex))

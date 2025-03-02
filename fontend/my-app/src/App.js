@@ -1,4 +1,3 @@
-// frontend/src/components/Login.js
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -44,7 +43,6 @@ function App() {
         });
         const result = await response.json();
         if (response.ok) {
-          // Set the text to the file content
           setText(result.content);
         } else {
           console.error(result.message);
@@ -63,7 +61,6 @@ function App() {
       });
       const result = await response.json();
       if (response.ok) {
-        // Set the text to the file content
         setText(result.content);
       } else {
         console.error(result.message);
@@ -97,6 +94,7 @@ function App() {
       textAlign: "center",
       justifyContent: "center",
     }}>
+      <h1>{getFormattedDate(date)}</h1>
       <form>
         <textarea
           value = {text}
@@ -111,7 +109,6 @@ function App() {
         />
       </form>
       <DatePicker selected={date} onChange={(newDate) => changeDate(newDate) } dateFormat="yyyy-MM-dd" />
-      <button onClick={ loadDataDate }>Load date</button>
     </div>
   );
 }
