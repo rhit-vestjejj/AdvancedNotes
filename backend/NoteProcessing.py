@@ -1,12 +1,7 @@
 import os
-from openai import OpenAI
+from llama_cpp import Llama
 
-api_key = os.getenv("OPENAI_API_KEY")
-
-if not api_key:
-    raise ValueError("API Key is missing. Set OPENAI_API_KEY in your environment variables.")
-
-client = OpenAI(api_key=api_key)
+model = Llama(model_path="Mistral-7B-Instruct-v0.1.Q4_K_M.gguf", n_ctx=4096, n_gpu_layers=0)  # Set n_gpu_layers to 0 if using CPU only
 
 def load_notes(directory):
     notes = {}
@@ -19,23 +14,19 @@ def load_notes(directory):
 
 notes = load_notes("backend/notes")
 
-def ask_gpt(query):
-    context = "\n\n".join(notes) if notes else "No relevant notes found."
-    prompt = f"Here are my notes:\n\n{context}\n\nNow answer this question based on them: {query}"
-
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[
-            {"role": "system", "content": "You are an assistant helping retrieve notes."},
-            {"role": "user", "content": prompt}
-        ]
+def ask_llm(query):
+    prompt = f"You are an assistant helping retrieve notes\n\nHere are my notes:\n\n{context}\n\nNow answer this question based on them: {query}"
+    response = model(
+        f"### Instruction:\n{prompt}\n### Response:", 
+        max_tokens=256,
+        stop=["### Instruction:", "### Response:"],  # Prevents excessive output
+        echo=False
     )
-
-    return response["choices"][0]["message"]["content"]
+    return response["choices"][0]["text"].strip()
 
 while True:
     query = input("Ask a question (or 'exit' to quit): ")
     if query.lower() == "exit":
         break
-    response = ask_gpt(query)
+    response = ask_llm(query)
     print("\nGPT's Answer:\n", response)
