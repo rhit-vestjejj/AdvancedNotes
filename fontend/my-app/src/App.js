@@ -109,6 +109,75 @@ function App() {
         />
       </form>
       <DatePicker selected={date} onChange={(newDate) => changeDate(newDate) } dateFormat="yyyy-MM-dd" />
+        <TalkGpt />
+    </div>
+  );
+}
+
+function TalkGpt(){
+  const [message, setMessage] = useState('');
+  const [response, setResponse] = useState('');
+  const textAreaRef = useRef(null);
+  const responseAreaRef = useRef(null);
+
+  useEffect(() => {
+    if (textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+      textAreaRef.current.style.height =
+      textAreaRef.current.scrollHeight + 'px';
+    }
+  }, [message]);
+  
+  useEffect(() => {
+    if (responseAreaRef.current) {
+      responseAreaRef.current.style.height = 'auto';
+      responseAreaRef.current.style.height =
+      responseAreaRef.current.scrollHeight + 'px';
+    }
+  }, [response]);
+
+  const submitChat = async (e) => {
+    setResponse("Loading... (45-60 seconds)")
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:5000/api/send_chat`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message })
+      });
+      const result = await response.json();
+      if(response.ok) {
+        setResponse(result.content)
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) { 
+      console.error(`Error during send_chat ${error}`)
+    }
+  }
+
+
+  return (
+    <div>
+      <textarea
+        value = { message }
+        ref = { textAreaRef }
+        onChange = {(e) => setMessage(e.target.value)}
+        placeholder = { message ? message : "Message the ai..." }
+        style = {{
+          width: '100%',
+          height: 'auto',
+        }}
+        />
+        <button onClick = { submitChat }>Send message</button>
+        <textarea
+          value = { response }
+          ref = { responseAreaRef }
+          style = {{
+            width: '100%',
+            height: 'auto',
+          }}
+          />
     </div>
   );
 }

@@ -3,6 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import date
 import os
+from model_talk import talk_ai
 
 
 app = Flask(__name__)
@@ -42,6 +43,15 @@ def get_notes():
         content = f.read()
 
     return jsonify({"content": content}), 200
+
+@app.route('/api/send_chat', methods = ['POST'])
+def send_chat():
+    data = request.get_json()
+    message = data.get("message")
+
+    response = talk_ai(message)
+
+    return jsonify({"content": response}), 200
 
 def create_note(name):
     with open(f"backend/notes/{name}.txt", 'w') as f:
