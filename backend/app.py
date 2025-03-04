@@ -3,7 +3,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 from datetime import date
 import os
-from model_talk import talk_ai
+from backend.model_talk import talk_ai
 
 
 app = Flask(__name__)

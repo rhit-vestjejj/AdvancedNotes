@@ -1,4 +1,4 @@
-from note_processing import getPrompt
+from backend.note_processing import getPrompt
 from ollama import chat
 
 # Load the chatbot model (you can choose a different model if preferred)
