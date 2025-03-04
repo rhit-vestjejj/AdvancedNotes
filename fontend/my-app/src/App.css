@@ -1,38 +1,212 @@
-.App {
-  text-align: center;
+body {
+  background-color: rgb(9, 9, 9);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.chatButton {
+  border-radius: 50%;
+  border: 1px solid rgb(171, 171, 171);
+  color: rgb(171, 171, 171);
+  background-color: rgb(44, 44, 44);
+  width: 35px;
+  aspect-ratio: 1;
+  font-size: 20px;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  transition: width 0.3s ease, height 0.3s ease, transform 0.3s ease;
+
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.messageBox {
   display: flex;
+  width: 300px;
+  height: 350px;
+  position: absolute;
   flex-direction: column;
-  align-items: center;
+  border-radius: 5px;
+  bottom: 5px;
+  right: 5px;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  background-color: rgb(44, 44, 44);
+}
+
+.messageBox.visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.sendMessageBox {
+  position: absolute;
+  bottom: 0;
+  width: 86.3%;
+  resize: none;
+  padding: 0;
+  border: 1px solid black;
+  background-color: rgb(44, 44, 44);
+  border-bottom-left-radius: 5px;
+  padding-left: 3px;
+  padding-top: 2px;
+  color: rgb(171, 171, 171)
+}
+
+.sendMessageBox:focus {
+  outline-width: 0px;
+}
+
+.sendMessage {
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  width: calc(13.3% - 2px);
+  text-align: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 0;
+  border: 1px solid black;
+  border-right: 0px solid black;
+  background-color: rgb(44, 44, 44);
+  color: rgb(119, 119, 119);
+  border-bottom-right-radius: 5px;
 }
 
-.App-link {
-  color: #61dafb;
+.closeButton {
+  width: 20px;
+  text-align: center;
+  justify-content: center;
+  padding: 0;
+  border: 0px solid black;
+  margin-top: 6px;
+  margin-left: 2px;
+  background-color: rgb(44, 44, 44);
+  font-weight: bold;
+  color:rgb(119, 119, 119)
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.responseBox {
+  width: 98.3%;
+  resize: none;
+  overflow: hidden;
+  position: absolute;
+  margin-top: 30px;
+  color: rgb(119, 119, 119);
+  background-color: rgb(44, 44, 44);
+  border: 0px solid black;
+}
+
+.sidebarButton {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  transition: transform 0.3s ease;
+  z-index: 2;
+  color: rgb(171, 171, 171);
+  background-color: rgb(44, 44, 44);
+  border: 0.4px solid rgb(171, 171, 171);
+  border-radius: 4px;
+}
+
+.sidebar {
+  display: flex;
+  width: 200px;
+  border: 1px solid black;
+  position: fixed;
+  height: 100%;
+  top: 0;
+  background-color: rgb(44, 44, 44);
+  border-radius: 4px;
+  transform: translateX(-200px);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  z-index: 1;
+}
+
+.sidebar.visible {
+  opacity: 1;
+  transform: translateX(0px);
+}
+
+.closeSideBar {
+  border: 0px solid black;
+  background-color: rgb(44, 44, 44);
+  position: absolute;
+  right: 7px;
+  top: 7px;
+  color: rgb(171, 171, 171)
+}
+
+.sidebar-content {
+  max-height: calc(100% - 40px);
+  overflow-y: auto;
+  margin-top: 30px;
+  border-top: 1px solid
+}
+
+.sideBarDate {
+  display: 'flex';
+  align-items: 'center';
+  width: 200px;
+  background-color: rgb(44, 44, 44);
+  border: 0px solid black;
+  font-size: 15px;
+  height: 35px;
+  color: rgb(171, 171, 171);
+  border-bottom: 1px solid black;
+}
+
+.noteBox {
+  resize: none;
+  border: 1px solid rgb(119, 119, 119);
+  color: rgb(171, 171, 171);
+  width: 99%;
+  height: auto;
+  border-radius: 4px;
+  background-color: rgb(44, 44, 44);
+}
+
+.title {
+  color: rgb(171, 171, 171);
+}
+
+.dateTimePicker {
+  background-color: rgb(44, 44, 44);
+  border: 1px solid rgb(119, 119, 119);
+  color: rgb(171, 171, 171);
+  border-radius: 4px;
+}
+
+.react-datepicker__month-container {
+  background-color: rgb(9, 9, 9);
+  color: rgb(171, 171, 171);
+  border: 0.8px solid rgb(171, 171, 171);
+}
+
+.react-datepicker__day {
+  background-color: rgb(60, 60, 60);
+  border-radius: 3px;
+}
+
+.react-datepicker__day:hover {
+  background-color: rgb(99, 99, 99) !important;
+  color: rgb(171, 171, 171);
+}
+
+.react-datepicker__day--selected {
+  font-weight: bold;
+  color: rgb(171, 171, 171);
+  border-radius: 5px;
+  background-color: rgb(44, 44, 44);
+}
+
+.react-datepicker__header{
+  background-color: rgb(9, 9, 9);
+  color: rgb(171, 171, 171);
+}
+
+.react-datepicker__current-month {
+  color: rgb(171, 171, 171);
+}
+
+.react-datepicker__day-name {
+  color: rgb(171, 171, 171);
 }

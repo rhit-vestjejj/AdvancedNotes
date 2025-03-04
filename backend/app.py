@@ -61,5 +61,15 @@ def remove_note(name):
     if os.path.exists(f"backend/notes/{name}.txt"):
             os.remove(f"backend/notes/{name}.txt")
 
+@app.route('/api/get_all_notes', methods = ['GET'])
+def send_all_chats():
+    allNotes = []
+
+    for filename in os.listdir("backend/notes"):
+        allNotes.append(filename.replace(".txt", ""))
+
+    return jsonify({"content" : allNotes})
+    
+
 if __name__ == '__main__':
     app.run(debug=True)
