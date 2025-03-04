@@ -1,1 +1,0 @@
-Finished my react coding project where you can play rock paper scissors vs a computer with minimax.
