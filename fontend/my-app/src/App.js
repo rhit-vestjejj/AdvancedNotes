@@ -23,7 +23,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://advanced-notes.vercel.app/api/send_notes?date=${getFormattedDate(date)}&prevDate=${getFormattedDate(prevDate)}`, {
+      const response = await fetch(`https://advancednotes.onrender.com/api/send_notes?date=${getFormattedDate(date)}&prevDate=${getFormattedDate(prevDate)}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text })
@@ -42,7 +42,7 @@ function App() {
   useEffect(() => {
     const loadData = async () => {
       try {
-        const response = await fetch('https://advanced-notes.vercel.app/api/get_notes', {
+        const response = await fetch('https://advancednotes.onrender.com/api/get_notes', {
           method: 'GET',
         });
         const result = await response.json();
@@ -60,7 +60,7 @@ function App() {
 
   const loadDataDate = useCallback(async () => {
     try {
-      const response = await fetch(`https://advanced-notes.vercel.app/api/get_notes?date=${getFormattedDate(date)}&prevDate=${getFormattedDate(prevDate)}`, {
+      const response = await fetch(`https://advancednotes.onrender.com/api/get_notes?date=${getFormattedDate(date)}&prevDate=${getFormattedDate(prevDate)}`, {
         method: 'GET',
       });
       const result = await response.json();
@@ -76,7 +76,7 @@ function App() {
 
   const loadDataDateSide = useCallback(async () => {
     try {
-      const response = await fetch(`https://advanced-notes.vercel.app/api/get_notes?date=${getFormattedDate(date)}&prevDate=${getFormattedDate(prevDate)}`, {
+      const response = await fetch(`https://advancednotes.onrender.com/api/get_notes?date=${getFormattedDate(date)}&prevDate=${getFormattedDate(prevDate)}`, {
         method: 'GET',
       });
       const result = await response.json();
@@ -92,7 +92,7 @@ function App() {
 
   const loadAllDays = useCallback(async () => {
     try {
-      const response = await fetch(`https://advanced-notes.vercel.app/api/get_all_notes`, {
+      const response = await fetch(`https://advancednotes.onrender.com/api/get_all_notes`, {
         method: 'GET',
       });
       const result = await response.json();
@@ -185,7 +185,7 @@ function TalkGpt() {
     setMessage("");
     e.preventDefault();
     try {
-      const response = await fetch(`https://advanced-notes.vercel.app/api/send_chat`, {
+      const response = await fetch(`https://advancednotes.onrender.com/api/send_chat`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message }),
